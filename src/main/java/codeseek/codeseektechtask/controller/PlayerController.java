@@ -27,21 +27,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class PlayerController {
     private final PlayerService playerService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping
     @Operation(summary = "Get all players", description = "Get a list of all available players")
     public List<PlayerResponseDto> findAll(@ParameterObject Pageable pageable) {
         return playerService.getAll(pageable);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{id}")
     @Operation(summary = "Get player by id", description = "Get available player by id")
     public PlayerResponseDto getPlayerById(@PathVariable Long id) {
         return playerService.findById(id);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PostMapping
     @Operation(summary = "Save player to repository",
             description = "Save valid player to repository")
@@ -49,7 +49,7 @@ public class PlayerController {
         return playerService.save(request);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete player by id",
             description = "Soft delete of available player by id")
@@ -57,7 +57,7 @@ public class PlayerController {
         playerService.deleteById(id);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PutMapping("/{id}")
     @Operation(summary = "Update player by id", description = "Update available player by id")
     public PlayerResponseDto updateById(@PathVariable Long id,
@@ -65,7 +65,7 @@ public class PlayerController {
         return playerService.updateById(id, request);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PutMapping("/transfer/{id}")
     @Operation(summary = "transfer player by id", description = "transfer available player by id")
     public PlayerResponseDto transferById(@PathVariable Long id,
