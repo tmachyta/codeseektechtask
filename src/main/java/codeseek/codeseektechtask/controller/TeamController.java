@@ -27,21 +27,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class TeamController {
     private final TeamService teamService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping
     @Operation(summary = "Get all teams", description = "Get a list of all available teams")
     public List<TeamResponseDto> findAll(@ParameterObject Pageable pageable) {
         return teamService.getAll(pageable);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{id}")
     @Operation(summary = "Get team by id", description = "Get available team by id")
     public TeamResponseDto getTeamById(@PathVariable Long id) {
         return teamService.findById(id);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PostMapping
     @Operation(summary = "Save team to repository",
             description = "Save valid team to repository")
@@ -49,7 +49,7 @@ public class TeamController {
         return teamService.save(request);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete team by id",
             description = "Soft delete of available team by id")
@@ -57,7 +57,7 @@ public class TeamController {
         teamService.deleteById(id);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PutMapping("/{id}")
     @Operation(summary = "Update player by id", description = "Update available player by id")
     public TeamResponseDto updateById(@PathVariable Long id,

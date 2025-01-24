@@ -134,4 +134,5 @@ class PlayerServiceImplTest {
         Assertions.assertThrows(EntityNotFoundException.class,
                 () -> playerService.findById(PLAYER_ID));
 
+    }
 }
